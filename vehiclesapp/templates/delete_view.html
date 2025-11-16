@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form method="POST">
+        {% csrf_token %}
+        Esta seguro de eliminar el elemento ?
+        <input type="submit" value="Si" class="btn btn-primary" />
+        <a href="/" class="btn btn-secondary">Cancelar </a>
+    </form>
+{% endblock %}
