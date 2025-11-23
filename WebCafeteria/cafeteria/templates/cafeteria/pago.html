@@ -1,0 +1,28 @@
+{% extends "cafeteria/base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <div class="col-md-6 mx-auto">
+        <div class="card card-custom">
+            <h3 class="fw-bold mb-2 text-center">Confirmar Pago</h3>
+            <p class="text-muted text-center mb-3">Pedido #{{ pedido.id }} | Total: <strong>${{ pedido.total }}</strong></p>
+            <div class="alert alert-info small mb-4">
+                Método seleccionado: <strong>{{ pago.get_metodo_display }}</strong>
+                {% if pago.metodo == 'tarjeta' %}<br>Ingresa el código de autorización o referencia del procesador.{% endif %}
+                {% if pago.metodo == 'qr' %}<br>Escanea el código y pega la referencia de la transacción.{% endif %}
+                {% if pago.metodo == 'transferencia' %}<br>Realiza la transferencia y coloca el número de comprobante.{% endif %}
+            </div>
+            <form method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    {{ form.referencia.label_tag }}
+                    {{ form.referencia }}
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Confirmar Pago</button>
+            </form>
+            <div class="mt-3 text-center">
+                <a href="{% url 'seleccionar_metodo_pago' pedido.id %}" class="small text-decoration-none">Cambiar método</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

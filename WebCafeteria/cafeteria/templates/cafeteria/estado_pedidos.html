@@ -1,0 +1,70 @@
+{% extends "cafeteria/base.html" %}
+{% block content %}
+
+<div class="container mt-4">
+
+    <h2 class="text-center fw-bold mb-4">Mis Pedidos</h2>
+
+    {% if pedidos %}
+
+        <div class="list-group">
+
+            {% for pedido in pedidos %}
+            <div class="list-group-item mb-3 p-4 shadow-sm rounded">
+
+                <!-- Encabezado -->
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h5 class="fw-bold mb-0">Pedido #{{ pedido.id }}</h5>
+                    <span class="badge 
+                        {% if pedido.estado == 'pendiente' %} bg-warning text-dark
+                        {% elif pedido.estado == 'preparacion' %} bg-primary
+                        {% elif pedido.estado == 'listo' %} bg-success
+                        {% elif pedido.estado == 'entregado' %} bg-secondary
+                        {% endif %}
+                    ">
+                        {{ pedido.estado|capfirst }}
+                    </span>
+                </div>
+
+                <!-- Datos del pedido -->
+                <p class="mb-1"><strong>Fecha:</strong> {{ pedido.fecha|date:"d/m/Y H:i" }}</p>
+                <p class="mb-1"><strong>Total:</strong> ${{ pedido.total }}</p>
+
+                {% if pedido.promocion_aplicada %}
+                <p class="text-success fw-bold">
+                    Promo aplicada: {{ pedido.promocion_aplicada.nombre }}
+                </p>
+                {% endif %}
+
+                <hr>
+
+                <div class="d-flex flex-wrap gap-2">
+                    <a href="#" class="btn btn-sm btn-outline-primary disabled">
+                        Ver detalles (opcional)
+                    </a>
+                    {% if pedido.estado == 'pendiente' %}
+                    <form method="post" action="{% url 'cancelar_pedido' pedido.id %}" onsubmit="return confirm('¿Cancelar el pedido #{{ pedido.id }}?');">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-sm btn-outline-danger">
+                            Cancelar
+                        </button>
+                    </form>
+                    {% endif %}
+                </div>
+
+            </div>
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="alert alert-info text-center">
+            Aún no tienes pedidos registrados.
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

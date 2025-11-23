@@ -1,0 +1,43 @@
+{% extends "cafeteria/base.html" %}
+{% block content %}
+
+<div class="container d-flex justify-content-center mt-5">
+
+    <div class="col-md-5">
+        <div class="card card-custom p-4">
+
+            <h3 class="fw-bold text-center mb-3">Iniciar Sesión</h3>
+
+            <p class="text-muted text-center mb-4">
+                Ingresa tus credenciales para continuar
+            </p>
+
+            <form method="post">
+                {% csrf_token %}
+
+                {% if form.errors %}
+                    <div class="alert alert-danger">
+                        Usuario o contraseña incorrectos.
+                    </div>
+                {% endif %}
+
+                <!-- Formulario con estilo bootstrap -->
+                {% for field in form %}
+                <div class="mb-3">
+                    <label class="form-label">{{ field.label }}</label>
+                    {{ field }}
+                </div>
+                {% endfor %}
+
+                <button type="submit" class="btn btn-primary w-100">
+                    Acceder
+                </button>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

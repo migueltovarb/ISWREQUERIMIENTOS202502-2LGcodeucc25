@@ -1,0 +1,67 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+*.egg
+
+# Virtual environments
+venv/
+.env
+.venv/
+ENV/
+env/
+
+# Django stuff:
+*.log
+*.pot
+*.pyc
+*.sqlite3
+db.sqlite3
+media/
+staticfiles/
+
+# If you collect static to a folder named static/ uncomment:
+# static/
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+
+# IDE/editor
+.vscode/
+.idea/
+*.swp
+
+# Environment variables / secrets
+*.env
+.env.*
+
+# Migrations cache (keep migrations themselves)
+# (We keep migrations so not ignoring migrations folder)
+
+# Local settings override (if any)
+local_settings.py
+
+# Backup files
+*~
